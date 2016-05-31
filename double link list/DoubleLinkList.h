@@ -17,7 +17,8 @@ public:
 	~DoubleLinkList();
 	void PrintForward();
 	void PrintReverse();
-	void AddItemAtBegining(int newdata);
+	void InsertNodeIntoList(int newdata, DoubleNode* Temp);
+	void AddNewItem(int newdata);
 };
 
 #endif

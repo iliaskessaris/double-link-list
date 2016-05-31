@@ -37,15 +37,39 @@ void DoubleLinkList::PrintReverse() {
 	}
 }
 
-//Add an item at the begining of the List.
-void DoubleLinkList::AddItemAtBegining(int newdata) {
-	DoubleNode* Temp=new DoubleNode();
+//Add an item in the list.
+void DoubleLinkList::InsertNodeIntoList(int newdata, DoubleNode* Temp) {
+	DoubleNode* Item = new DoubleNode;
+	Item->data = newdata;
 
-	Temp->data = newdata;
-	Temp->prev = NULL;
-	Temp->next = Head;
-	Head = Temp;
-	if (Tail == NULL) {
-		Tail = Temp;
+	if (Head  == NULL) {
+		Item->prev = NULL;//Insert first node in the list.
+		Item->next = NULL;
+		Head = Item;
+		Tail = Item;
+	} else if (Head == Temp && Temp != NULL) {
+			Item->prev = NULL; //Insert at the begining of the list.
+			Item->next = Head;
+			Head = Item;
+			} else if (Head != NULL && Temp == NULL) {
+				Item->next = NULL;  //Insert at the end of the list.
+				Item->prev = Tail;
+				Tail->next = Item;
+				Tail = Item;
+			} 	else {
+					Item->prev = Temp->prev;  //Insert between two nodes.
+					Item->next = Temp;
+					Temp->prev->next = Item;
+					Temp->prev = Item;
+				}
+}
+
+void DoubleLinkList::AddNewItem(int newdata) {
+	DoubleNode* Temp = Head;
+
+	while (Temp != NULL && newdata > Temp->data) { //How the list is build up.
+		Temp = Temp->next;
+	
 	}
+	InsertNodeIntoList(newdata, Temp);
 }

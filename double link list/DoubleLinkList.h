@@ -19,6 +19,8 @@ public:
 	void PrintReverse();
 	void InsertNodeIntoList(int newdata, DoubleNode* Temp);
 	void AddNewItem(int newdata);
+	void DeleteNodeFromList(DoubleNode* Temp);
+	void DeleteNode(int existingdata);
 };
 
 #endif

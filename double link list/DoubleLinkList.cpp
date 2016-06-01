@@ -64,12 +64,53 @@ void DoubleLinkList::InsertNodeIntoList(int newdata, DoubleNode* Temp) {
 				}
 }
 
+
+//Search the list for the appropriate place to add a new node.
 void DoubleLinkList::AddNewItem(int newdata) {
 	DoubleNode* Temp = Head;
 
 	while (Temp != NULL && newdata > Temp->data) { //How the list is build up.
 		Temp = Temp->next;
-	
 	}
 	InsertNodeIntoList(newdata, Temp);
+}
+
+//Delete a node from the list.
+void DoubleLinkList::DeleteNodeFromList(DoubleNode* Temp) {
+
+	if (Head == NULL) {
+		cout << "The list is empty\n"; //Nothing to delete the list is empty.
+	}
+	else if (Head == Tail && Tail != NULL) {
+		delete(Head); //Delete the first node when there is not second.
+		Head = NULL;
+		Tail = NULL;
+	}
+	else if (Head == Temp && Temp != NULL) {
+		Head = Head->next; //Delete a node from the begining of the list.
+		Head->prev = NULL;
+		delete(Temp);
+	}
+	else if (Head != NULL && Temp == Tail) {
+		Tail = Tail->prev; //Delete last node.
+		delete(Tail->next);
+		Tail->next = NULL;
+	}
+	else {
+		Temp->prev->next = Temp->next; //Delete a node between two others.
+		Temp->next->prev = Temp->prev;
+		delete(Temp);
+	}
+}
+
+//Searches the list for the item to delete.
+void DoubleLinkList::DeleteNode(int existingdata) {
+	DoubleNode* Temp = Head;
+
+	while (Temp != NULL && existingdata != Temp->data) {
+		Temp = Temp->next; //Search the list for the item to delete.
+	}
+	if (existingdata == Temp->data) {
+		DeleteNodeFromList(Temp);
+	}
 }

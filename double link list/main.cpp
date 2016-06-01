@@ -24,6 +24,9 @@ void main() {
 	List->AddNewItem(8);
 	List->PrintForward();
 	cout << endl;
+	List->DeleteNode(7);
+	List->PrintForward();
+	cout << endl;
 
 	//(Temp != NULL)
 	system("Pause");

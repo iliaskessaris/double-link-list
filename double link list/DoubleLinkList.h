@@ -12,15 +12,18 @@ private:
 	DoubleNode* Head;
 	DoubleNode* Tail;
 
+	void InsertNodeIntoList(int newdata, DoubleNode* Temp);
+	void DeleteNodeFromList(DoubleNode* Temp);
+
 public:
 	DoubleLinkList();
 	~DoubleLinkList();
 	void PrintForward();
 	void PrintReverse();
-	void InsertNodeIntoList(int newdata, DoubleNode* Temp);
 	void AddNewItem(int newdata);
-	void DeleteNodeFromList(DoubleNode* Temp);
-	void DeleteNode(int existingdata);
+	void DeleteItem(int existingdata);
+	void StoreListToFile();
+	void ReadListFromFile();
 };
 
 #endif

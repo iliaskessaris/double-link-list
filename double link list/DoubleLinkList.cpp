@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "DoubleLinkList.h"
 
 using namespace std;
@@ -22,6 +23,7 @@ DoubleLinkList::~DoubleLinkList() {
 //Traverses forward the double link list and prints its data.
 void DoubleLinkList::PrintForward() {
 	DoubleNode* Temp = Head;
+	cout << endl;
 	while (Temp !=NULL) {
 		cout << Temp->data << endl;
 		Temp = Temp->next;
@@ -31,6 +33,7 @@ void DoubleLinkList::PrintForward() {
 //Traverses reverse the double link list and prints its data.
 void DoubleLinkList::PrintReverse() {
 	DoubleNode* Temp = Tail;
+	cout << endl;
 	while (Temp != NULL) {
 		cout << Temp->data << endl;
 		Temp = Temp->prev;
@@ -62,6 +65,7 @@ void DoubleLinkList::InsertNodeIntoList(int newdata, DoubleNode* Temp) {
 					Temp->prev->next = Item;
 					Temp->prev = Item;
 				}
+			cout << "The item successfully added\n";
 }
 
 
@@ -72,7 +76,12 @@ void DoubleLinkList::AddNewItem(int newdata) {
 	while (Temp != NULL && newdata > Temp->data) { //How the list is build up.
 		Temp = Temp->next;
 	}
-	InsertNodeIntoList(newdata, Temp);
+	if (Temp != NULL && newdata == Temp->data) {
+		cout << "The item exists\n";
+	}
+	else {
+		InsertNodeIntoList(newdata, Temp);
+	}
 }
 
 //Delete a node from the list.
@@ -101,10 +110,11 @@ void DoubleLinkList::DeleteNodeFromList(DoubleNode* Temp) {
 		Temp->next->prev = Temp->prev;
 		delete(Temp);
 	}
+	cout << "The item succesfully deleted\n";
 }
 
 //Searches the list for the item to delete.
-void DoubleLinkList::DeleteNode(int existingdata) {
+void DoubleLinkList::DeleteItem(int existingdata) {
 	DoubleNode* Temp = Head;
 
 	while (Temp != NULL && existingdata != Temp->data) {
@@ -112,5 +122,34 @@ void DoubleLinkList::DeleteNode(int existingdata) {
 	}
 	if (existingdata == Temp->data) {
 		DeleteNodeFromList(Temp);
+	}
+}
+
+void DoubleLinkList::StoreListToFile() {
+	DoubleNode* Temp = Head;
+	ofstream DoubleLink("DoubleLink.txt");
+
+	while (Temp != NULL) {
+		DoubleLink << Temp->data;
+		if (Temp->next != NULL) {
+			DoubleLink << endl;
+		}
+		Temp = Temp->next;
+	}
+	DoubleLink.close();
+}
+
+void DoubleLinkList::ReadListFromFile() {
+	int newdata;
+	ifstream DoubleLink("DoubleLink.txt");
+
+	if (DoubleLink.is_open()) {
+		while (!DoubleLink.eof()) {
+			DoubleLink >> newdata;
+			AddNewItem(newdata);
+		}
+	}
+	else {
+		cout << "The file does not exist\n";
 	}
 }
